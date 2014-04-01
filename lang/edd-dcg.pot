@@ -1,0 +1,248 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: edd-dcg\n"
+"POT-Creation-Date: 2013-11-29 09:13-0000\n"
+"PO-Revision-Date: 2013-11-29 09:13-0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: edd-discount-code-generator.php:65
+msgid "Export Discount Codes in CSV"
+msgstr ""
+
+#: edd-discount-code-generator.php:67
+msgid "Download a CSV of all discount codes."
+msgstr ""
+
+#: edd-discount-code-generator.php:71
+msgid "Generate CSV"
+msgstr ""
+
+#: includes/add-discount.php:16
+msgid "Number of Codes"
+msgstr ""
+
+#: includes/add-discount.php:20
+msgid "The number of codes to generate"
+msgstr ""
+
+#: includes/add-discount.php:25
+#: includes/class-export-discount-codes.php:24
+msgid "Name"
+msgstr ""
+
+#: includes/add-discount.php:29
+msgid ""
+"The name of this discount. This will have a number appended to it, e.g. "
+"Name-1"
+msgstr ""
+
+#: includes/add-discount.php:34
+#: includes/class-export-discount-codes.php:25
+msgid "Code"
+msgstr ""
+
+#: includes/add-discount.php:38
+msgid "Hash"
+msgstr ""
+
+#: includes/add-discount.php:39
+msgid "Letters"
+msgstr ""
+
+#: includes/add-discount.php:40
+msgid "Numbers"
+msgstr ""
+
+#: includes/add-discount.php:43
+msgid "Enter a type of code and code length limit"
+msgstr ""
+
+#: includes/add-discount.php:48
+msgid "Type"
+msgstr ""
+
+#: includes/add-discount.php:52
+msgid "Percentage"
+msgstr ""
+
+#: includes/add-discount.php:53
+msgid "Flat amount"
+msgstr ""
+
+#: includes/add-discount.php:55
+msgid "The kind of discount to apply for this discount."
+msgstr ""
+
+#: includes/add-discount.php:60
+#: includes/class-export-discount-codes.php:26
+msgid "Amount"
+msgstr ""
+
+#: includes/add-discount.php:64
+msgid "The amount of this discount code."
+msgstr ""
+
+#: includes/add-discount.php:69
+#, php-format
+msgid "%s Requirements"
+msgstr ""
+
+#: includes/add-discount.php:74
+#, php-format
+msgid "All Selected %s"
+msgstr ""
+
+#: includes/add-discount.php:75
+#, php-format
+msgid "Any Selected %s"
+msgstr ""
+
+#: includes/add-discount.php:77
+msgid "Condition"
+msgstr ""
+
+#: includes/add-discount.php:79
+#, php-format
+msgid "Choose one or more %s"
+msgstr ""
+
+#: includes/add-discount.php:89
+#, php-format
+msgid "%s required to be purchased for this discount."
+msgstr ""
+
+#: includes/add-discount.php:94
+#, php-format
+msgid "Apply discount only to selected %s?"
+msgstr ""
+
+#: includes/add-discount.php:101
+msgid "Start date"
+msgstr ""
+
+#: includes/add-discount.php:105
+msgid ""
+"Enter the start date for this discount code in the format of mm/dd/yyyy. For "
+"no start date, leave blank. If entered, the discount can only be used after "
+"or on this date."
+msgstr ""
+
+#: includes/add-discount.php:110
+msgid "Expiration date"
+msgstr ""
+
+#: includes/add-discount.php:114
+msgid ""
+"Enter the expiration date for this discount code in the format of mm/dd/"
+"yyyy. For no expiration, leave blank"
+msgstr ""
+
+#: includes/add-discount.php:119
+msgid "Minimum Amount"
+msgstr ""
+
+#: includes/add-discount.php:123
+msgid ""
+"The minimum amount that must be purchased before this discount can be used. "
+"Leave blank for no minimum."
+msgstr ""
+
+#: includes/add-discount.php:128
+#: includes/class-export-discount-codes.php:28
+msgid "Max Uses"
+msgstr ""
+
+#: includes/add-discount.php:132
+msgid ""
+"The maximum number of times this discount can be used. Leave blank for "
+"unlimited."
+msgstr ""
+
+#: includes/add-discount.php:137
+msgid "Use Once Per Customer"
+msgstr ""
+
+#: includes/add-discount.php:141
+msgid "Limit this discount to a single-use per customer?"
+msgstr ""
+
+#: includes/add-discount.php:151
+msgid "Create Codes"
+msgstr ""
+
+#: includes/admin-page.php:15
+msgid "Easy Digital Download Discount Code Generator"
+msgstr ""
+
+#: includes/admin-page.php:15
+msgid "Code Generator"
+msgstr ""
+
+#: includes/admin-page.php:23
+msgid "Generate Codes"
+msgstr ""
+
+#: includes/admin-page.php:32
+msgid "Discount Code Generator"
+msgstr ""
+
+#: includes/admin-page.php:45
+msgid "codes generated"
+msgstr ""
+
+#: includes/admin-page.php:45
+msgid "Export to CSV"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:27
+msgid "Uses"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:29
+msgid "Start Date"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:30
+msgid "Expiration"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:31
+msgid "Status"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:64
+msgid "unlimited"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:66
+msgid "Unlimited"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:74
+msgid "No start date"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:78
+msgid "Expired"
+msgstr ""
+
+#: includes/class-export-discount-codes.php:80
+msgid "No expiration"
+msgstr ""
+
+#: includes/EDD_License_Handler.php:126
+#, php-format
+msgid "%1$s License Key"
+msgstr ""
+
+#: includes/EDD_License_Handler.php:256
+msgid "Deactivate License"
+msgstr ""
