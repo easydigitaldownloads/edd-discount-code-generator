@@ -4,8 +4,8 @@ Plugin Name: Easy Digital Downloads - Discount Code Generator
 Plugin URL: http://easydigitaldownloads.com/extension/coupon-generator
 Description: Create discount codes in bulk.
 Version: 1.0
-Author: Dev7studios
-Author URI: http://dev7studios.com
+Author: polevaultweb
+Author URI: http://polevaultweb.com
 */
 
 
