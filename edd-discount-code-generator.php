@@ -13,9 +13,8 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 
 	class eddDev7DiscountCodeGenerator {
 
-	    private $plugin_name = 'Discount Code Generator';
-	    private $plugin_version;
-	    private $plugin_author = 'polevaultweb';
+		private $plugin_name = 'Discount Code Generator';
+		private $plugin_version;
 
 	    function __construct() {
 
@@ -48,7 +47,7 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 				include_once EDD_DCG_PLUGIN_DIR . '/includes/discount-actions.php';
 
 				if ( class_exists( 'EDD_License' ) ) {
-					$edddcg_license = new EDD_License( __FILE__, $this->plugin_name, $this->plugin_version, $this->plugin_author, null, null, 143801 );
+					$edddcg_license = new EDD_License( __FILE__, $this->plugin_name, $this->plugin_version, 'Sandhills Development, LLC', null, null, 143801 );
 				}
 			}
 		}
