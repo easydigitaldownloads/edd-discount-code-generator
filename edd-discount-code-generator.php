@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: Easy Digital Downloads - Discount Code Generator
-Plugin URL: http://easydigitaldownloads.com/extension/coupon-generator
-Description: Create discount codes in bulk.
-Version: 1.1
-Author: polevaultweb
-Author URI: http://polevaultweb.com
-*/
+ * Plugin Name: Easy Digital Downloads - Discount Code Generator
+ * Plugin URL: https://easydigitaldownloads.com/downloads/discount-code-generator/
+ * Description: Create discount codes in bulk.
+ * Version: 1.1
+ * Author: Sandhills Development, LLC
+ * Author URI: https://sandhillsdev.com
+ */
 
 
 if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
@@ -42,17 +42,16 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 	        add_action('edd_discount_codes_export', array($this, 'edd_export_all_discount_codes') );
 	        add_action('edd_discount_codes_recent_export', array($this, 'edd_export_recent_discount_codes') );
 
-			if( is_admin() ) {
+			if ( is_admin() ) {
 
-				include_once( EDD_DCG_PLUGIN_DIR .'/includes/admin-page.php' );
-				include_once( EDD_DCG_PLUGIN_DIR .'/includes/discount-actions.php' );
+				include_once EDD_DCG_PLUGIN_DIR . '/includes/admin-page.php';
+				include_once EDD_DCG_PLUGIN_DIR . '/includes/discount-actions.php';
 
-				if( class_exists( 'EDD_License' ) ) {
-					$edddcg_license = new EDD_License( __FILE__, $this->plugin_name, $this->plugin_version, $this->plugin_author );
+				if ( class_exists( 'EDD_License' ) ) {
+					$edddcg_license = new EDD_License( __FILE__, $this->plugin_name, $this->plugin_version, $this->plugin_author, null, null, 143801 );
 				}
 			}
-
-	    }
+		}
 
 	    function edd_load_scripts_for_these_pages($pages) {
 	    	$pages[] = 'download_page_edd-dc-generator';
