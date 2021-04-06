@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return void
  */
 function edd_dcg_add_discount( $data ) {
-	if ( empty( $data['edd_dcg_discount_nonce'] || ! wp_verify_nonce( $data['edd_dcg_discount_nonce'], 'edd_dcg_discount_nonce' ) ) ) {
+	if ( empty( $data['edd_dcg_discount_nonce'] ) || ! wp_verify_nonce( $data['edd_dcg_discount_nonce'], 'edd_dcg_discount_nonce' ) ) {
 		return;
 	}
 	// Setup the discount code details
@@ -46,13 +46,33 @@ function edd_dcg_add_discount( $data ) {
 		unset( $code['code-type'] );
 		unset( $code['code-limit'] );
 
+		$fields_to_convert = array(
+			'products'   => 'product_reqs',
+			'min_price'  => 'min_charge_amount',
+			'max'        => 'max_uses',
+			'use_once'   => 'once_per_customer',
+			'start'      => 'start_date',
+			'expiration' => 'end_date',
+		);
+		if ( function_exists( 'edd_add_discount' ) ) {
+			$code['scope'] = ! empty( $data['not_global'] ) ? 'not_global' : 'global';
+			foreach ( $fields_to_convert as $edd2x => $edd30 ) {
+				$code[ $edd30 ] = $code[ $edd2x ];
+				unset( $code[ $edd2x ] );
+			}
+		}
+
 		$result = true;
 		// Loop through and generate code, check code doesnt exist _edd_discount_code
 		for ( $i = 1; $i <= $posted['number-codes']; $i++ ) {
 			$code['name']   = $posted['name'] . '-' . $i;
 			$code['code']   = edd_dcg_create_code( $posted['code-type'], $posted['code-limit'] );
 			$code['status'] = 'active';
-			$result         = edd_store_discount( $code );
+			if ( function_exists( 'edd_add_discount' ) ) {
+				$result = edd_add_discount( $code );
+			} else {
+				$result = edd_store_discount( $code );
+			}
 			if ( ! $result ) {
 				break;
 			}
