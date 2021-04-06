@@ -38,12 +38,11 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 	        add_filter('edd_load_scripts_for_these_pages', array($this, 'edd_load_scripts_for_these_pages'));
 	        add_filter('edd_load_scripts_for_discounts', array($this, 'edd_load_scripts_for_these_pages'));
 
-	        add_action('edd_reports_tab_export_content_bottom', array($this, 'edd_add_code_export'));
-	        add_action('edd_discount_codes_export', array($this, 'edd_export_all_discount_codes') );
-	        add_action('edd_discount_codes_recent_export', array($this, 'edd_export_recent_discount_codes') );
+			add_action( 'edd_reports_tab_export_content_bottom', array( $this, 'edd_add_code_export' ) );
 
-			if( is_admin() ) {
+			if ( is_admin() ) {
 
+				include_once EDD_DCG_PLUGIN_DIR . '/includes/export-functions.php';
 				include_once( EDD_DCG_PLUGIN_DIR .'/includes/admin-page.php' );
 				include_once( EDD_DCG_PLUGIN_DIR .'/includes/discount-actions.php' );
 
@@ -59,35 +58,28 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 			return $pages;
 	    }
 
-	    function edd_add_code_export() {
-	    ?>
-		    <div class="postbox">
-				<h3><span><?php _e('Export Discount Codes in CSV', 'edd_dcg'); ?></span></h3>
+		/**
+		 * Adds the discount code exporter to the Reports > Export screen.
+		 *
+		 * @return void
+		 */
+		public function edd_add_code_export() {
+			?>
+			<div class="postbox">
+				<h3><?php esc_html_e( 'Export Discount Codes in CSV', 'edd_dcg' ); ?></h3>
 				<div class="inside">
-					<p><?php _e( 'Download a CSV of all discount codes.', 'edd_dcg' ); ?></p>
-					<p>
-						<form method="post">
-							<input type="hidden" name="edd-action" value="discount_codes_export"/>
-							<input type="submit" value="<?php _e( 'Generate CSV', 'edd_dcg' ); ?>" class="button-secondary"/>
-						</form>
-					</p>
+					<p><?php esc_html_e( 'Download a CSV of all discount codes.', 'edd_dcg' ); ?></p>
+					<form id="edd-dcg-export" method="post" class="edd-export-form edd-import-export-form">
+						<?php wp_nonce_field( 'edd_ajax_export', 'edd_ajax_export' ); ?>
+						<input type="hidden" name="edd-dcg-recent" value="<?php echo ( ! empty( $_GET['edd-dcg-recent'] ) ? (int) $_GET['edd-dcg-recent'] : '' ); ?>"/>
+						<input type="hidden" name="edd-export-class" value="EDD_Discount_Codes_Export"/>
+						<input type="submit" value="<?php esc_html_e( 'Generate CSV', 'edd_dcg' ); ?>" class="button-secondary"/>
+						<span class="spinner"></span>
+					</form>
 				</div>
 			</div>
-		<?php
-	    }
-
-		function edd_export_all_discount_codes() {
-			require_once EDD_DCG_PLUGIN_DIR . '/includes/class-export-discount-codes.php';
-			$discount_code_export = new EDD_Discount_Codes_Export();
-			$discount_code_export->export();
+			<?php
 		}
-
-		function edd_export_recent_discount_codes() {
-			require_once EDD_DCG_PLUGIN_DIR . '/includes/class-export-discount-codes.php';
-			$discount_code_export = new EDD_Discount_Codes_Export(true);
-			$discount_code_export->export();
-		}
-
 	}
 	$eddDev7DiscountCodeGenerator = new eddDev7DiscountCodeGenerator();
 }
