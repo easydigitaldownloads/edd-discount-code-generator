@@ -27,14 +27,14 @@ function edd_dcg_add_bulk_link() {
 add_action( 'edd_discounts_page_top', 'edd_dcg_add_bulk_link' );
 
 function edd_dcg_page() {
-    ?>
-    <div class="wrap">
-        <h2><?php _e( 'Discount Code Generator', 'edd_dcg' ); ?></h2>
+	?>
+	<div class="wrap">
+		<h1><?php esc_html_e( 'Discount Code Generator', 'edd_dcg' ); ?></h1>
 		<?php
-        require_once EDD_DCG_PLUGIN_DIR . 'includes/add-discount.php';
-        ?>
-    </div>
-    <?php
+		require_once EDD_DCG_PLUGIN_DIR . 'includes/add-discount.php';
+		?>
+	</div>
+	<?php
 }
 
 function edd_dcg_admin_messages() {
