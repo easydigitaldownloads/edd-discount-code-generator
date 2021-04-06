@@ -37,16 +37,17 @@ function edd_dcg_page() {
     <?php
 }
 
+/**
+ * Outputs the admin message after codes have been successfully generated.
+ *
+ * @return void
+ */
 function edd_dcg_admin_messages() {
-	$number = ! empty( $_GET['edd-number'] ) ? (int) $_GET['edd-number'] : false;
-
-	if ( ! $number || ! current_user_can( 'manage_shop_discounts' ) ) {
+	$number = edd_dcg_code_generation_was_successful();
+	if ( ! $number ) {
 		return;
 	}
 
-	if ( empty( $_GET['edd-message'] ) || 'discounts_added' !== $_GET['edd-message'] ) {
-		return;
-	}
 	ob_start();
 	printf(
 		/* translators: the number of discount codes generated. */
@@ -67,3 +68,38 @@ function edd_dcg_admin_messages() {
 	settings_errors( 'edd-dcg-notices' );
 }
 add_action( 'admin_notices', 'edd_dcg_admin_messages', 10 );
+
+/**
+ * Enqueues the export tools script in EDD 3.0.
+ *
+ * @since 1.1.1
+ * @return void
+ */
+function edd_dcg_enqueue_export_script() {
+	if ( ! edd_dcg_code_generation_was_successful() ) {
+		return;
+	}
+	wp_enqueue_script( 'edd-admin-tools-export' );
+}
+add_action( 'admin_enqueue_scripts', 'edd_dcg_enqueue_export_script' );
+
+/**
+ * Determines whether discount code generation was successful.
+ * Returns false if the current user does not have sufficient permissions.
+ *
+ * @since 1.1.1
+ * @return bool|int False if not; otherwise returns the number of codes generated.
+ */
+function edd_dcg_code_generation_was_successful() {
+	$number = ! empty( $_GET['edd-number'] ) ? (int) $_GET['edd-number'] : false;
+
+	if ( ! $number || ! current_user_can( 'manage_shop_discounts' ) ) {
+		return false;
+	}
+
+	if ( empty( $_GET['edd-message'] ) || 'discounts_added' !== $_GET['edd-message'] ) {
+		return false;
+	}
+
+	return $number;
+}
