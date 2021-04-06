@@ -8,28 +8,47 @@
  * @return      void
 */
 
+/**
+ * Adds a hidden discount code generator screen.
+ *
+ * @return void
+ */
 function edd_dcg_add_licenses_link() {
-
-	global $edd_dcg_licenses_page;
-
-	$edd_dcg_licenses_page = add_submenu_page( 'edit.php?post_type=download', __( 'Easy Digital Download Discount Code Generator', 'edd_dcg' ), __( 'Code Generator', 'edd_dcg' ), 'manage_options', 'edd-dc-generator', 'edd_dcg_page' );
-	remove_submenu_page( 'edit.php?post_type=download', 'edd-dc-generator' );
-
+	add_submenu_page( null, __( 'Easy Digital Download Discount Code Generator', 'edd_dcg' ), __( 'Code Generator', 'edd_dcg' ), 'manage_options', 'edd-dc-generator', 'edd_dcg_page' );
 }
 add_action( 'admin_menu', 'edd_dcg_add_licenses_link', 10 );
 
+/**
+ * Renders the link to the discount code generator screen.
+ *
+ * @return void
+ */
 function edd_dcg_add_bulk_link() {
-	$url = admin_url('edit.php?post_type=download&page=edd-dc-generator');
-	$html = '<a class="button" href="'. $url .'">'. __('Generate Codes', 'edd_dcg') .'</a>';
-	echo $html;
+	$url = add_query_arg(
+		array(
+			'post_type' => 'download',
+			'page'      => 'edd-dc-generator',
+		),
+		admin_url( 'edit.php' )
+	);
+	printf(
+		'<a class="button button-secondary" href="%1$s">%2$s</a>',
+		esc_url( $url ),
+		esc_html__( 'Generate Codes', 'edd_dcg' )
+	);
 }
-
 add_action( 'edd_discounts_page_top', 'edd_dcg_add_bulk_link' );
 
+/**
+ * Outputs the discount code generator page.
+ *
+ * @return void
+ */
 function edd_dcg_page() {
 	?>
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Discount Code Generator', 'edd_dcg' ); ?></h1>
+		<hr class="wp-header-end">
 		<?php
 		require_once EDD_DCG_PLUGIN_DIR . 'includes/add-discount.php';
 		?>
