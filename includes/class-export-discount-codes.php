@@ -52,26 +52,38 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 	 */
 	public function get_data() {
 
-		$data      = array();
-		$args      = array(
-			'orderby'        => 'ID',
-			'order'          => 'DESC',
-			'paged'          => $this->step,
-			'posts_per_page' => 100,
+		$data = array();
+		$args = array(
+			'order'  => 'DESC',
+			'offset' => ( $this->step * 30 ) - 30,
 		);
-		$discounts = edd_get_discounts( $args );
-		if ( $this->recent ) {
-			$args['posts_per_page'] = $this->recent;
-			$last                   = edd_get_discounts( $args );
-			$code_name              = $last[0]->post_name;
-			$code_name              = substr( $code_name, 0, strpos( $code_name, '-' ) + 1 );
-			$last_discounts         = array();
-			foreach ( $discounts as $discount ) {
-				if ( strpos( $discount->post_name, $code_name ) !== false ) {
-					$last_discounts[] = $discount;
-				}
+		if ( function_exists( 'edd_get_adjustments' ) ) {
+			$args['type']    = 'discount';
+			$args['orderby'] = 'id';
+			if ( $this->recent ) {
+				$args['number'] = $this->recent;
 			}
-			$discounts = $last_discounts;
+			$discounts = edd_get_adjustments( $args );
+		} else {
+			$args['orderby']        = 'ID';
+			$args['posts_per_page'] = 30;
+			$discounts              = edd_get_discounts( $args );
+			if ( ! $discounts ) {
+				return false;
+			}
+			if ( $this->recent ) {
+				$args['posts_per_page'] = $this->recent;
+				$last                   = edd_get_discounts( $args );
+				$code_name              = $last[0]->post_name;
+				$code_name              = substr( $code_name, 0, strpos( $code_name, '-' ) + 1 );
+				$last_discounts         = array();
+				foreach ( $discounts as $discount ) {
+					if ( strpos( $discount->post_name, $code_name ) !== false ) {
+						$last_discounts[] = $discount;
+					}
+				}
+				$discounts = $last_discounts;
+			}
 		}
 
 		if ( ! $discounts ) {
@@ -102,14 +114,14 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 
 			$data[] = array(
 				'ID'         => $discount->ID,
-				'name'       => get_the_title( $discount->ID ),
+				'name'       => ! empty( $discount->name ) ? $discount->name : get_the_title( $discount->ID ),
 				'code'       => edd_get_discount_code( $discount->ID ),
 				'amount'     => edd_format_discount_rate( edd_get_discount_type( $discount->ID ), edd_get_discount_amount( $discount->ID ) ),
 				'uses'       => $uses,
 				'max_uses'   => $max_uses,
 				'start_date' => $discount_start_date,
 				'expiration' => $expiration,
-				'status'     => ucwords( $discount->post_status ),
+				'status'     => ucwords( ! empty( $discount->status ) ? $discount->status : $discount->post_status ),
 			);
 		}
 
@@ -122,6 +134,7 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 	/**
 	 * Gets the percentage of the completed job.
 	 *
+	 * @since 1.1.1
 	 * @return void
 	 */
 	public function get_percentage_complete() {
@@ -130,13 +143,21 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 		if ( $this->recent ) {
 			return $percentage;
 		}
-		$discounts = edd_get_discounts(
-			array(
-				'posts_per_page' => 999999,
-				'fields'         => 'ids',
-			)
-		);
-		$total     = count( $discounts );
+		if ( function_exists( 'edd_count_adjustments' ) ) {
+			$total = edd_count_adjustments(
+				array(
+					'type' => 'discount',
+				)
+			);
+		} else {
+			$discounts = edd_get_discounts(
+				array(
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+				)
+			);
+			$total     = is_array( $discounts ) ? count( $discounts ) : 0;
+		}
 
 		if ( $total > 0 ) {
 			$percentage = ( ( 100 * $this->step ) / $total ) * 100;
@@ -149,6 +170,13 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 		return $percentage;
 	}
 
+	/**
+	 * Sets the properties for the exporter class.
+	 *
+	 * @since 1.1.1
+	 * @param array $request
+	 * @return void
+	 */
 	public function set_properties( $request ) {
 		if ( ! empty( $request['edd-dcg-recent'] ) ) {
 			$this->recent = (int) $request['edd-dcg-recent'];
