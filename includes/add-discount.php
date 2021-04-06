@@ -68,34 +68,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="edd-products"><?php printf( __( '%s Requirements', 'edd_dcg' ), edd_get_label_plural() ); ?></label>
+					<label for="products">
+						<?php
+						/* translators: the singular product name. */
+						printf( esc_html__( '%s Requirements', 'edd_dcg' ), edd_get_label_singular() );
+						?>
+					</label>
 				</th>
 				<td>
-					<p>
-						<label for="edd-product-condition"><?php esc_html_e( 'Condition', 'edd_dcg' ); ?></label>
-						<select id="edd-product-condition" name="product_condition">
-							<option value="all"><?php printf( __( 'All Selected %s', 'edd_dcg' ), edd_get_label_plural() ); ?></option>
-							<option value="any"><?php printf( __( 'Any Selected %s', 'edd_dcg' ), edd_get_label_singular() ); ?></option>
-						</select>
-					</p>
-					<label for="products"><?php esc_html_e( 'Select Products', 'edd_dcg' ); ?></label>
 					<?php
 					echo EDD()->html->product_dropdown(
 						array(
-							'name'     => 'products[]',
-							'id'       => 'products',
-							'multiple' => true,
-							'chosen'   => true,
+							'name'        => 'products[]',
+							'id'          => 'products',
+							'selected'    => array(),
+							'multiple'    => true,
+							'chosen'      => true,
+							'placeholder' => sprintf( esc_html__( 'Select %s', 'easy-digital-downloads' ), esc_html( edd_get_label_plural() ) ),
 						)
 					);
 					?>
+					<p>
+						<label for="edd-product-condition" class="screen-reader-text"><?php esc_html_e( 'Condition', 'edd_dcg' ); ?></label>
+						<select id="edd-product-condition" name="product_condition">
+							<option value="all"><?php printf( __( 'Cart must contain all selected %s', 'edd_dcg' ), edd_get_label_plural() ); ?></option>
+							<option value="any"><?php printf( __( 'Cart needs one or more of the selected %s', 'edd_dcg' ), edd_get_label_singular() ); ?></option>
+						</select>
+					</p>
 					<p class="description"><?php printf( __( '%s required to be purchased for this discount.', 'edd_dcg' ), edd_get_label_plural() ); ?></p>
 
 					<p>
-						<label for="edd-non-global-discount">
-							<input type="checkbox" id="edd-non-global-discount" name="not_global" value="1"/>
-							<?php printf( __( 'Apply discount only to selected %s?', 'edd_dcg' ), edd_get_label_plural() ); ?>
-						</label>
+						<input type="checkbox" id="edd-non-global-discount" name="not_global" value="1"/>
+						<label for="edd-non-global-discount"><?php printf( __( 'Apply discount only to selected %s?', 'edd_dcg' ), edd_get_label_plural() ); ?></label>
 					</p>
 				</td>
 			</tr>
