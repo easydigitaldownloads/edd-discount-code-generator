@@ -54,7 +54,7 @@ function edd_dcg_add_discount( $data ) {
 			'start'      => 'start_date',
 			'expiration' => 'end_date',
 		);
-		if ( function_exists( 'edd_add_discount' ) ) {
+		if ( function_exists( 'edd_add_adjustment' ) ) {
 			$code['scope'] = ! empty( $data['not_global'] ) ? 'not_global' : 'global';
 			foreach ( $fields_to_convert as $edd2x => $edd30 ) {
 				$code[ $edd30 ] = $code[ $edd2x ];
@@ -68,7 +68,7 @@ function edd_dcg_add_discount( $data ) {
 			$code['name']   = $posted['name'] . '-' . $i;
 			$code['code']   = edd_dcg_create_code( $posted['code-type'], $posted['code-limit'] );
 			$code['status'] = 'active';
-			if ( function_exists( 'edd_add_discount' ) ) {
+			if ( function_exists( 'edd_add_adjustment' ) ) {
 				$result = edd_add_discount( $code );
 			} else {
 				$result = edd_store_discount( $code );
