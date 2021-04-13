@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</th>
 				<td>
 					<input type="number" id="edd-number-codes" name="number-codes" value="" class="small-text" min="1" />
-					<p class="description"><?php esc_html_e( 'The number of codes to generate', 'edd_dcg' ); ?></p>
+					<p class="description"><?php esc_html_e( 'The number of codes to generate.', 'edd_dcg' ); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</th>
 				<td>
 					<input name="name" id="edd-name" type="text" value="" class="regular-text"/>
-					<p class="description"><?php esc_html_e( 'The name of this discount. This will have a number appended to it, e.g. Name-1', 'edd_dcg' ); ?></p>
+					<p class="description"><?php esc_html_e( 'The name of this discount. This will have a number appended to it ( e.g. Name-1).', 'edd_dcg' ); ?></p>
 				</td>
 			</tr>
 			<tr>
