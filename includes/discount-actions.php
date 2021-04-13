@@ -57,7 +57,7 @@ function edd_dcg_add_discount( $data ) {
 		if ( function_exists( 'edd_add_adjustment' ) ) {
 			$code['scope'] = ! empty( $data['not_global'] ) ? 'not_global' : 'global';
 			foreach ( $fields_to_convert as $edd2x => $edd30 ) {
-				$code[ $edd30 ] = $code[ $edd2x ];
+				$code[ $edd30 ] = ! empty( $code[ $edd2x ] ) ? $code[ $edd2x ] : '';
 				unset( $code[ $edd2x ] );
 			}
 		}
