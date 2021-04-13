@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<label for="edd-number-codes"><?php esc_html_e( 'Number of Codes', 'edd_dcg' ); ?></label>
 				</th>
 				<td>
-					<input type="number" id="edd-number-codes" name="number-codes" value="" class="small-text" />
+					<input type="number" id="edd-number-codes" name="number-codes" value="" class="small-text" min="1" />
 					<p class="description"><?php esc_html_e( 'The number of codes to generate', 'edd_dcg' ); ?></p>
 				</td>
 			</tr>
