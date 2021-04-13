@@ -43,18 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<option value="letters"><?php esc_html_e( 'Letters', 'edd_dcg' ); ?></option>
 						<option value="number"><?php esc_html_e( 'Numbers', 'edd_dcg' ); ?></option>
 					</select>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row">
-					<label for="edd-type"><?php esc_html_e( 'Type', 'edd_dcg' ); ?></label>
-				</th>
-				<td>
-					<select name="type" id="edd-type">
-						<option value="percent"><?php esc_html_e( 'Percentage', 'edd_dcg' ); ?></option>
-						<option value="flat"><?php esc_html_e( 'Flat amount', 'edd_dcg' ); ?></option>
-					</select>
-					<p class="description"><?php esc_html_e( 'The kind of discount to apply for this discount.', 'edd_dcg' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Enter the number of characters and type of code to generate.', 'edd_dcg' ); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -62,8 +51,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<label for="edd-amount"><?php esc_html_e( 'Amount', 'edd_dcg' ); ?></label>
 				</th>
 				<td>
-					<input type="text" id="edd-amount" name="amount" value=""/>
-					<p class="description"><?php esc_html_e( 'The amount of this discount code.', 'edd_dcg' ); ?></p>
+					<span class="edd-amount-type-wrapper">
+						<input type="text" id="edd-amount" name="amount" class="edd-price-field" value=""/>
+						<label for="edd-amount-type" class="screen-reader-text"><?php esc_html_e( 'Type', 'edd_dcg' ); ?></label>
+						<select name="type" id="edd-amount-type">
+							<option value="percent"><?php esc_html_e( 'Percentage', 'edd_dcg' ); ?></option>
+							<option value="flat"><?php esc_html_e( 'Flat amount', 'edd_dcg' ); ?></option>
+						</select>
+					</span>
+					<p class="description"><?php esc_html_e( 'The amount and type of this discount code.', 'edd_dcg' ); ?></p>
 				</td>
 			</tr>
 			<tr>
