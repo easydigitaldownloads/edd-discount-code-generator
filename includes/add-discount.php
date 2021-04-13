@@ -36,13 +36,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<label for="edd-code-limit"><?php esc_html_e( 'Code', 'edd_dcg' ); ?></label>
 				</th>
 				<td>
+					<input type="number" id="edd-code-limit" name="code-limit" value="10" class="small-text"/>
+					<label class="screen-reader-text" for="edd-code-type"><?php esc_html_e( 'Code Type', 'edd_dcg' ); ?></label>
 					<select name="code-type" id="edd-code-type">
 						<option value="hash"><?php esc_html_e( 'Hash', 'edd_dcg' ); ?></option>
 						<option value="letters"><?php esc_html_e( 'Letters', 'edd_dcg' ); ?></option>
 						<option value="number"><?php esc_html_e( 'Numbers', 'edd_dcg' ); ?></option>
 					</select>
-					<input type="number" id="edd-code-limit" name="code-limit" value="10" class="small-text"/>
-					<p class="description"><?php esc_html_e( 'Enter a type of code and code length limit', 'edd_dcg' ); ?></p>
 				</td>
 			</tr>
 			<tr>
