@@ -90,15 +90,12 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 			return false;
 		}
 		foreach ( $discounts as $discount ) {
-			if ( edd_get_discount_max_uses( $discount->ID ) ) {
-				$uses = edd_get_discount_uses( $discount->ID ) . '/' . edd_get_discount_max_uses( $discount->ID );
+			$max_uses = edd_get_discount_max_uses( $discount->ID );
+			if ( $max_uses ) {
+				$uses = edd_get_discount_uses( $discount->ID ) . '/' . $max_uses;
 			} else {
-				$uses = edd_get_discount_uses( $discount->ID );
-			}
-
-			$max_uses = __( 'Unlimited', 'edd_dcg' );
-			if ( edd_get_discount_max_uses( $discount->ID ) ) {
-				$max_uses = edd_get_discount_max_uses( $discount->ID );
+				$max_uses = __( 'Unlimited', 'edd_dcg' );
+				$uses     = edd_get_discount_uses( $discount->ID );
 			}
 
 			$start_date          = edd_get_discount_start_date( $discount->ID );
