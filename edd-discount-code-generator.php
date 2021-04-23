@@ -63,8 +63,8 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 		 */
 		public function edd_add_code_export() {
 			?>
-			<div class="postbox">
-				<h3><?php esc_html_e( 'Export Discount Codes in CSV', 'edd_dcg' ); ?></h3>
+			<div class="postbox edd-export-discount-codes">
+				<h2 class="hndle"><?php esc_html_e( 'Export Discount Codes in CSV', 'edd_dcg' ); ?></h2>
 				<div class="inside">
 					<p><?php esc_html_e( 'Download a CSV of all discount codes.', 'edd_dcg' ); ?></p>
 					<form id="edd-dcg-export" method="post" class="edd-export-form edd-import-export-form">
