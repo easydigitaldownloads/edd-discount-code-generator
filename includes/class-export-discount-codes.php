@@ -98,7 +98,7 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 
 			$max_uses = __( 'Unlimited', 'edd_dcg' );
 			if ( edd_get_discount_max_uses( $discount->ID ) ) {
-				$max_uses = edd_get_discount_max_uses( $discount->ID ) ? edd_get_discount_max_uses( $discount->ID ) : __( 'unlimited', 'edd_dcg' );
+				$max_uses = edd_get_discount_max_uses( $discount->ID );
 			}
 
 			$start_date          = edd_get_discount_start_date( $discount->ID );
