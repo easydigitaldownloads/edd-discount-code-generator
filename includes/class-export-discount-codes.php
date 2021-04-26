@@ -132,11 +132,15 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 	 */
 	public function get_percentage_complete() {
 
+		$total      = 0;
 		$percentage = 100;
 		if ( $this->recent ) {
-			return $percentage;
-		}
-		if ( function_exists( 'edd_count_adjustments' ) ) {
+			$current_pass = $this->step * 30;
+			if ( $current_pass > $this->recent ) {
+				return $percentage;
+			}
+			$total = $this->recent;
+		} elseif ( function_exists( 'edd_count_adjustments' ) ) {
 			$total = edd_count_adjustments(
 				array(
 					'type' => 'discount',
@@ -149,7 +153,9 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 					'fields'         => 'ids',
 				)
 			);
-			$total     = is_array( $discounts ) ? count( $discounts ) : 0;
+			if ( is_array( $discounts ) ) {
+				$total = count( $discounts );
+			}
 		}
 
 		if ( $total > 0 ) {
