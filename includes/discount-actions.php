@@ -117,9 +117,20 @@ function edd_dcg_create_code( $type, $limit ) {
 	return $code;
 }
 
+/**
+ * Checks if the generated code already exists in the database.
+ *
+ * @since unknown
+ * @param string $code
+ * @return bool
+ */
 function edd_dcg_code_exists( $code ) {
 	global $wpdb;
-	$wpdb->get_results( $wpdb->prepare( "SELECT meta_key FROM $wpdb->postmeta where meta_key='_edd_discount_code' and meta_value=%s", $code ) );
+	if ( function_exists( 'edd_add_adjustment' ) ) {
+		$wpdb->get_results( $wpdb->prepare( "SELECT id FROM $wpdb->edd_adjustments where code=%s", $code ) );
+	} else {
+		$wpdb->get_results( $wpdb->prepare( "SELECT meta_key FROM $wpdb->postmeta where meta_key='_edd_discount_code' and meta_value=%s", $code ) );
+	}
 	if ( ( $wpdb->num_rows ) > 0 ) {
 		return true;
 	}
