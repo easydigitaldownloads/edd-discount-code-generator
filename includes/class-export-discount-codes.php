@@ -57,13 +57,17 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 			'order'  => 'DESC',
 			'offset' => ( $this->step * 30 ) - 30,
 		);
+		/**
+		 * If exporting just the recent codes, check the current offset
+		 * and return early if we are past the number of recent codes.
+		 */
+		if ( $this->recent && $this->step > 1 && $args['offset'] > $this->recent ) {
+			return false;
+		}
 		if ( function_exists( 'edd_get_adjustments' ) ) {
 			$args['type']    = 'discount';
 			$args['orderby'] = 'id';
-			if ( $this->recent ) {
-				$args['number'] = $this->recent;
-			}
-			$discounts = edd_get_adjustments( $args );
+			$discounts       = edd_get_adjustments( $args );
 		} else {
 			$args['orderby']        = 'ID';
 			$args['posts_per_page'] = 30;
@@ -71,25 +75,17 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 			if ( ! $discounts ) {
 				return false;
 			}
-			if ( $this->recent ) {
-				$args['posts_per_page'] = $this->recent;
-				$last                   = edd_get_discounts( $args );
-				$code_name              = $last[0]->post_name;
-				$code_name              = substr( $code_name, 0, strpos( $code_name, '-' ) + 1 );
-				$last_discounts         = array();
-				foreach ( $discounts as $discount ) {
-					if ( strpos( $discount->post_name, $code_name ) !== false ) {
-						$last_discounts[] = $discount;
-					}
-				}
-				$discounts = $last_discounts;
-			}
 		}
 
 		if ( ! $discounts ) {
 			return false;
 		}
+		$i = $args['offset'];
 		foreach ( $discounts as $discount ) {
+			$i++;
+			if ( $this->recent && $i > $this->recent ) {
+				break;
+			}
 			$uses     = edd_get_discount_uses( $discount->ID );
 			$max_uses = edd_get_discount_max_uses( $discount->ID );
 			if ( $max_uses ) {
