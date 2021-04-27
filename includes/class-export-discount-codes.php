@@ -135,10 +135,6 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 		$total      = 0;
 		$percentage = 100;
 		if ( $this->recent ) {
-			$current_pass = $this->step * 30;
-			if ( $current_pass > $this->recent ) {
-				return $percentage;
-			}
 			$total = $this->recent;
 		} elseif ( function_exists( 'edd_count_adjustments' ) ) {
 			$total = edd_count_adjustments(
