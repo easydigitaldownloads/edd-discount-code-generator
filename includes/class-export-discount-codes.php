@@ -28,6 +28,13 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 	public $export_type = 'discount_codes';
 
 	/**
+	 * The number of codes to process per step.
+	 *
+	 * @var integer
+	 */
+	private $per_step = 30;
+
+	/**
 	 * The columns for the CSV.
 	 *
 	 * @return array
@@ -55,7 +62,7 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 		$data = array();
 		$args = array(
 			'order'  => 'DESC',
-			'offset' => ( $this->step * 30 ) - 30,
+			'offset' => ( $this->step * $this->per_step ) - $this->per_step,
 		);
 		/**
 		 * If exporting just the recent codes, check the current offset
@@ -70,7 +77,7 @@ class EDD_Discount_Codes_Export extends EDD_Batch_Export {
 			$discounts       = edd_get_adjustments( $args );
 		} else {
 			$args['orderby']        = 'ID';
-			$args['posts_per_page'] = 30;
+			$args['posts_per_page'] = $this->per_step;
 			$discounts              = edd_get_discounts( $args );
 			if ( ! $discounts ) {
 				return false;
