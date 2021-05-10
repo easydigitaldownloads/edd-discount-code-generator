@@ -59,7 +59,7 @@ function edd_dcg_admin_messages() {
 		<?php wp_nonce_field( 'edd_ajax_export', 'edd_ajax_export' ); ?>
 		<input type="hidden" name="edd-dcg-recent" value="<?php echo ( (int) $number ); ?>"/>
 		<input type="hidden" name="edd-export-class" value="EDD_Discount_Codes_Export"/>
-		<input type="submit" value="<?php esc_html_e( 'Generate CSV', 'edd_dcg' ); ?>" class="button-secondary"/>
+		<input type="submit" value="<?php esc_attr_e( 'Generate CSV', 'edd_dcg' ); ?>" class="button-secondary"/>
 		<span class="spinner"></span>
 	</form>
 	<?php
