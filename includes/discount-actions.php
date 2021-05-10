@@ -81,7 +81,7 @@ function edd_dcg_add_discount( $data ) {
 		if ( $result ) {
 			$args = array(
 				'edd-message' => 'discounts_added',
-				'edd-number'  => $posted['number-codes'],
+				'edd-number'  => urlencode( $posted['number-codes'] ),
 			);
 		} else {
 			$args = array(

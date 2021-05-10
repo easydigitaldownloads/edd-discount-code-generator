@@ -151,6 +151,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type="hidden" name="edd-action" value="add_discount"/>
 		<input type="hidden" name="edd-redirect" value="<?php echo esc_url( admin_url( 'edit.php?post_type=download&page=edd-discounts' ) ); ?>"/>
 		<?php wp_nonce_field( 'edd_dcg_discount_nonce', 'edd_dcg_discount_nonce' ); ?>
-		<input type="submit" value="<?php esc_html_e( 'Create Codes', 'edd_dcg' ); ?>" class="button button-primary"/>
+		<input type="submit" value="<?php esc_attr_e( 'Create Codes', 'edd_dcg' ); ?>" class="button button-primary"/>
 	</p>
 </form>
