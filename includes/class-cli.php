@@ -54,7 +54,7 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 	 * ---
 	 *
 	 * [--products=<product_ids>]
-	 * : Comma-separated list of product IDs.
+	 * : Comma-separated list of product IDs that the discounts will apply to.
 	 *
 	 * [--start=<start>]
 	 * : The start date for the discount code. If omitted, the discount can be used on or after today.
