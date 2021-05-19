@@ -56,6 +56,18 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 	 * [--products=<product_ids>]
 	 * : Comma-separated list of product IDs that the discounts will apply to.
 	 *
+	 * [--product-condition=<condition>]
+	 * : Condition for discount to apply to the products.
+	 * ---
+	 * default: any
+	 * options:
+	 *    - all
+	 *    - any
+	 *
+	 * [--global]
+	 * : If not set and products are specified, discounts will only apply to selected products. If set, discounts will
+	 * apply to the entire cart.
+	 *
 	 * [--start=<start>]
 	 * : The start date for the discount code. If omitted, the discount can be used on or after today.
 	 *
@@ -85,10 +97,11 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 
 		// We need to convert the format of a few args.
 		$fields_to_convert = array(
-			'number'    => 'number-codes',
-			'min-price' => 'min_price',
-			'max-uses'  => 'max',
-			'once'      => 'use_once',
+			'number'            => 'number-codes',
+			'min-price'         => 'min_price',
+			'max-uses'          => 'max',
+			'once'              => 'use_once',
+			'product-condition' => 'product_condition',
 		);
 		foreach ( $fields_to_convert as $cli_key => $function_key ) {
 			if ( array_key_exists( $cli_key, $assoc_args ) ) {
@@ -99,7 +112,10 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 
 		// Convert `products` to an array.
 		if ( ! empty( $final_args['products'] ) ) {
-			$final_args['products'] = array_map( 'intval', explode( ',', $final_args['products'] ) );
+			$final_args['products']   = array_map( 'intval', explode( ',', $final_args['products'] ) );
+			$final_args['not_global'] = empty( $final_args['global'] );
+
+			unset( $final_args['global'] );
 		}
 
 		WP_CLI::line( esc_html__( 'Creating discount codes...', 'edd_dcg' ) );
