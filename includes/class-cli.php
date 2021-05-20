@@ -125,7 +125,7 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 		if ( is_wp_error( $result ) ) {
 			WP_CLI::error( esc_html( $result->get_error_message() ) );
 		} elseif ( true === $result ) {
-			WP_CLI::success( esc_html__( 'Discounts successfully created.', 'edd_dcg' ) );
+			WP_CLI::success( esc_html__( 'Discount codes successfully created.', 'edd_dcg' ) );
 		} else {
 			// We should never end up here.
 			WP_CLI::error( esc_html__( 'An unexpected error has occurred.', 'edd_dcg' ) );
