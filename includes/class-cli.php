@@ -100,7 +100,6 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 			'number'            => 'number-codes',
 			'min-price'         => 'min_price',
 			'max-uses'          => 'max',
-			'once'              => 'use_once',
 			'product-condition' => 'product_condition',
 			'amount-type'       => 'type',
 		);
@@ -110,6 +109,8 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 				unset( $final_args[ $cli_key ] );
 			}
 		}
+
+		$final_args['use_once'] = ! empty( $assoc_args['once'] ) ? 1 : 0;
 
 		// Convert `products` to an array.
 		if ( ! empty( $final_args['products'] ) ) {
