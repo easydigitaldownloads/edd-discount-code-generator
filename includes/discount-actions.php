@@ -76,7 +76,7 @@ function edd_dcg_create_discount_codes( $data ) {
 
 	// Check number of codes is number and greater than 0
 	if ( floor( $posted['number-codes'] ) != $posted['number-codes'] || $posted['number-codes'] <= 0 ) {
-		return new WP_Error( 'invalid_number_codes', __( 'The supplied number of codes is invalid. Please enter an integer creater than zero.', 'edd_dcg' ) );
+		return new WP_Error( 'invalid_number_codes', __( 'The supplied number of codes is invalid. Please enter an integer greater than zero.', 'edd_dcg' ) );
 	}
 
 	$code = $posted;
