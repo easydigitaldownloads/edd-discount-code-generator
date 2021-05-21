@@ -24,10 +24,10 @@ function edd_dcg_add_discount( $data ) {
 
 	$result = edd_dcg_create_discount_codes( $data );
 
-	if ( true === $result ) {
+	if ( is_numeric( $result ) ) {
 		$args = array(
 			'edd-message' => 'discounts_added',
-			'edd-number'  => isset( $data['number-codes'] ) ? urlencode( $data['number-codes'] ) : 0,
+			'edd-number'  => urlencode( $result ),
 		);
 	} else {
 		$args = array(
@@ -50,7 +50,7 @@ add_action( 'edd_add_discount', 'edd_dcg_add_discount' );
  *
  * @param array $data
  *
- * @return true|WP_Error
+ * @return int|WP_Error Number of discount codes created on success, `WP_Error` on failure.
  */
 function edd_dcg_create_discount_codes( $data ) {
 	// Setup the discount code details
@@ -104,8 +104,8 @@ function edd_dcg_create_discount_codes( $data ) {
 	$result = true;
 
 	// Loop through and generate code, check code doesnt exist _edd_discount_code
-	for ( $i = 1; $i <= $posted['number-codes']; $i++ ) {
-		$code['name']   = $posted['name'] . '-' . $i;
+	for ( $i = 0; $i < $posted['number-codes']; $i++ ) {
+		$code['name']   = $posted['name'] . '-' . ( $i + 1 );
 		$code['code']   = edd_dcg_create_code( $posted['code-type'], $code_limit );
 		$code['status'] = 'active';
 		if ( function_exists( 'edd_add_adjustment' ) ) {
@@ -123,7 +123,7 @@ function edd_dcg_create_discount_codes( $data ) {
 		return $result;
 	}
 
-	return true;
+	return $i;
 }
 
 function edd_dcg_create_code( $type, $limit ) {
