@@ -102,6 +102,7 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 			'max-uses'          => 'max',
 			'once'              => 'use_once',
 			'product-condition' => 'product_condition',
+			'amount-type'       => 'type',
 		);
 		foreach ( $fields_to_convert as $cli_key => $function_key ) {
 			if ( array_key_exists( $cli_key, $assoc_args ) ) {
