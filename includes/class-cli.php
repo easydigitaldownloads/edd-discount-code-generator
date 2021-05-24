@@ -121,7 +121,7 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 		// Convert `products` to an array.
 		if ( ! empty( $final_args['products'] ) ) {
 			$final_args['products']   = array_map( 'intval', explode( ',', $final_args['products'] ) );
-			$final_args['not_global'] = ! empty( $final_args['scope'] ) && 'not_global' === $final_args['scope'];
+			$final_args['not_global'] = ! empty( $final_args['scope'] ) && 'not_global' === $final_args['scope'] ? 1 : 0;
 
 			unset( $final_args['scope'] );
 		}
