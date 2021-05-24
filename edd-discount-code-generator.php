@@ -39,7 +39,11 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 
 			add_action( 'edd_reports_tab_export_content_bottom', array( $this, 'edd_add_code_export' ) );
 
-			if ( is_admin() ) {
+			if ( defined( 'WP_CLI' ) && WP_CLI ) {
+				require_once EDD_DCG_PLUGIN_DIR . 'includes/class-cli.php';
+			}
+
+			if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
 				include_once EDD_DCG_PLUGIN_DIR . '/includes/export-functions.php';
 				include_once EDD_DCG_PLUGIN_DIR . '/includes/admin-page.php';
