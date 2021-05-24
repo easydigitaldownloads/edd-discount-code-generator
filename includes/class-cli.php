@@ -59,14 +59,20 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 	 * [--product-condition=<condition>]
 	 * : Condition for discount to apply to the products.
 	 * ---
-	 * default: any
+	 * default: all
 	 * options:
 	 *    - all
 	 *    - any
 	 *
-	 * [--global]
-	 * : If not set and products are specified, discounts will only apply to selected products. If set, discounts will
-	 * apply to the entire cart.
+	 * [--scope=<scope>]
+	 * : A global scope applies the discount to the entire cart. A not_global scope only applies the discount
+	 * to the specified products.
+	 * ---
+	 * default: global
+	 * options:
+	 *     - global
+	 *     - not_global
+	 * ---
 	 *
 	 * [--start=<start>]
 	 * : The start date for the discount code. If omitted, the discount can be used on or after today.
@@ -115,9 +121,9 @@ class EDD_Discount_Code_Generator_CLI extends WP_CLI_Command {
 		// Convert `products` to an array.
 		if ( ! empty( $final_args['products'] ) ) {
 			$final_args['products']   = array_map( 'intval', explode( ',', $final_args['products'] ) );
-			$final_args['not_global'] = empty( $final_args['global'] );
+			$final_args['not_global'] = ! empty( $final_args['scope'] ) && 'not_global' === $final_args['scope'];
 
-			unset( $final_args['global'] );
+			unset( $final_args['scope'] );
 		}
 
 		WP_CLI::line( esc_html__( 'Creating discount codes...', 'edd_dcg' ) );
