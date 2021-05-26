@@ -94,6 +94,9 @@ function edd_dcg_create_discount_codes( $data ) {
 	);
 	if ( function_exists( 'edd_add_adjustment' ) ) {
 		$code['scope'] = ! empty( $data['not_global'] ) ? 'not_global' : 'global';
+		if ( isset( $code['expiration'] ) ) {
+			$code['expiration'] = date( 'Y-m-d 23:59:59', $code['expiration'] );
+		}
 		foreach ( $fields_to_convert as $edd2x => $edd30 ) {
 			$code[ $edd30 ] = ! empty( $code[ $edd2x ] ) ? $code[ $edd2x ] : '';
 			unset( $code[ $edd2x ] );
