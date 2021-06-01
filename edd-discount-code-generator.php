@@ -1,9 +1,9 @@
 <?php
-/*
+/**
  * Plugin Name: Easy Digital Downloads - Discount Code Generator
  * Plugin URL: https://easydigitaldownloads.com/downloads/discount-code-generator/
  * Description: Create discount codes in bulk.
- * Version: 1.1
+ * Version: 1.1.1
  * Author: Sandhills Development, LLC
  * Author URI: https://sandhillsdev.com
  */
@@ -18,7 +18,7 @@ if( !class_exists( 'eddDev7DiscountCodeGenerator' ) ){
 
 	    function __construct() {
 
-	    	$this->plugin_version = '1.1';
+	    	$this->plugin_version = '1.1.1';
 
 	    	if ( ! defined( 'EDD_DCG_PLUGIN_DIR' ) ) {
 				define( 'EDD_DCG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
