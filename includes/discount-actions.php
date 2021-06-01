@@ -94,6 +94,16 @@ function edd_dcg_create_discount_codes( $data ) {
 	);
 	if ( function_exists( 'edd_add_adjustment' ) ) {
 		$code['scope'] = ! empty( $data['not_global'] ) ? 'not_global' : 'global';
+
+		if ( isset( $code['expiration'] ) ) {
+			$end_date      = sanitize_text_field( $code['expiration'] );
+			$end_date_time = '23:59:00';
+
+			// The end date is entered in the user's WP timezone. We need to convert it to UTC prior to saving now.
+			$date               = edd_get_utc_equivalent_date( EDD()->utils->date( $end_date . ' ' . $end_date_time, edd_get_timezone_id(), false ) );
+			$code['expiration'] = $date->format( 'Y-m-d H:i:s' );
+		}
+
 		foreach ( $fields_to_convert as $edd2x => $edd30 ) {
 			$code[ $edd30 ] = ! empty( $code[ $edd2x ] ) ? $code[ $edd2x ] : '';
 			unset( $code[ $edd2x ] );
